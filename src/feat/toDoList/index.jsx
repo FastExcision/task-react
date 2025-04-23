@@ -7,7 +7,7 @@ const Index = () => {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (newTask) => {
-    setTasks([...tasks, newTask]);
+    setTasks(prevTask => [...prevTask, newTask]);
   }
   const deleteTask = (key) => {
     setTasks(tasks.filter(task => task.key !== key));
