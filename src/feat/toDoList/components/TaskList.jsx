@@ -7,7 +7,7 @@ const TaskList = ({task, deleteTask}) => {
       className="taskList__item"
       onClick={() => deleteTask(task.key)}
     >
-      <strong>{task.body}</strong>
+      <strong>{task.taskName}</strong>
     </div>
   );
 };

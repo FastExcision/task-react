@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import TaskCreateForm from "../components/ToDoList/TaskCreateForm.jsx";
-import '../styles/ToDoList.css'
-import TaskList from "../components/ToDoList/TaskList.jsx";
+import TaskCreateForm from "./components/TaskCreateForm.jsx";
+import './styles/toDoList.css'
+import TaskList from "./components/TaskList.jsx";
 
-const ToDoList = () => {
+const Index = () => {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (newTask) => {
@@ -14,7 +14,7 @@ const ToDoList = () => {
   }
 
   return (
-    <div className={"to-do-list"}>
+    <div className="toDoListPage">
       <TaskCreateForm  createTask={addTask} />
       {tasks.map((task) => (
         <TaskList task={task} key={task.key} deleteTask={deleteTask}/>
@@ -23,4 +23,4 @@ const ToDoList = () => {
   );
 };
 
-export default ToDoList;
+export default Index;
