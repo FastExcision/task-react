@@ -3,7 +3,7 @@ import TaskCreateForm from "./components/TaskCreateForm.jsx";
 import './styles/toDoList.css'
 import TaskList from "./components/TaskList.jsx";
 
-const Index = () => {
+const ToDoListPage = () => {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (newTask) => {
@@ -23,4 +23,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export {ToDoListPage}
