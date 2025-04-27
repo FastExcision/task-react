@@ -1,27 +1,21 @@
 import React from 'react';
 
-const AnotherDayWeather = ({...props}) => {
+const AnotherDayWeather = ({temp, weather, date}) => {
 
   const checkDayOfWeek = (dateInSeconds) => {
     const dayNum = new Date(dateInSeconds * 1000).getDay();
-    return (
-      dayNum === 0 ? "Sunday"
-      : dayNum === 1 ? "Monday"
-        : dayNum === 2 ? "Tuesday"
-          : dayNum === 3 ? "Wednesday"
-            : dayNum === 4 ? "Thursday"
-              : dayNum === 5 ? "Friday"
-                : "Saturday")
+    const daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return daysArray[dayNum]
   }
 
   return (
-    <div key={props.item.dt} className="anotherDayWeather__item">
-      <strong>{checkDayOfWeek(props.item.dt)}</strong>
+    <div className="anotherDayWeather__item">
+      <strong>{checkDayOfWeek(date)}</strong>
       <img className="anotherDayWeather__img"
-           src={`/img/${props.item.weather[0].icon}.svg`}
-           alt={props.item.weather[0].description}
+           src={`/img/${weather[0].icon}.svg`}
+           alt={weather[0].description}
       />
-      <span>{Math.round(props.item.main.temp)}°C</span>
+      <span>{temp}°C</span>
     </div>
   );
 };

@@ -1,56 +1,46 @@
 import React, {useEffect, useState} from 'react';
-import WeatherAppService from "./api/api.jsx";
+import WeatherAppService from "../../api/weatherApi/index.js";
 import {useFetching} from "../../hooks/useFetching.jsx";
 import './styles/weatherApp.css';
 import TodayWeather from "./components/TodayWeather.jsx";
 import AnotherDayWeather from "./components/AnotherDayWeather.jsx";
-
+import SearchCityForm from "./components/searchCityForm.jsx";
 
 const WeatherAppPage = () => {
   const [cityName, setCityName] = useState("Санкт-Петербург");
   const [weatherData, setWeatherData] = useState(null);
 
-  const [fetchWeatherData, isLoading, error] = useFetching(async (cityName) => {
-    const response = await WeatherAppService.getGeo(cityName)
-    setWeatherData(await weatherGet(response.data[0].lat, response.data[0].lon))
-  });
+  const loadWeatherData = async (city) => {
+    const geoResponse = await WeatherAppService.getGeo(city);
+    const {lat, lon} = geoResponse.data[0];
+    const weatherResponse = await WeatherAppService.getWeatherDataByCoords(lat, lon);
+    setWeatherData(weatherResponse.data);
+  };
 
-  const weatherGet = async (lat, lon) => {
-    return await WeatherAppService.getWeatherDataByCoords(lat, lon)
-  }
+  const [fetchWeatherData, isLoading, error] = useFetching(loadWeatherData);
 
   useEffect(() => {
     fetchWeatherData(cityName)
   }, [cityName])
 
-  const newCitySearch = (event) => {
-    event.preventDefault();
-    if (event.target.citySearch.value === "") {
-      return;
-    }
-    setCityName(event.target.citySearch.value);
-    event.target.citySearch.value = "";
-  }
-
   return (<div className="weatherPage">
-    <form onSubmit={newCitySearch} className="weatherSearch">
-      <input placeholder="Enter a City..." name="citySearch" className="weatherSearch__input"/>
-    </form>
+    <SearchCityForm setCityName={setCityName}/>
     {isLoading ? (<img src="/img/loading.gif" alt="Loading..."/>) : error
       ? (<div>Ошибка: {error}</div>)
       : weatherData ? (<>
       <TodayWeather
-        weather={weatherData.data.list[0].weather[0]}
-        cityName={weatherData.data.city.name}
-        temp={Math.round(weatherData.data.list[0].main.temp)}
+        weather={weatherData.list[0].weather[0]}
+        cityName={weatherData.city.name}
+        temp={Math.round(weatherData.list[0].main.temp)}
       />
-
       <div className="anotherDayWeather_wrapper">
-        {weatherData.data.list
-          .filter((item, i) => [8, 16, 24, 32].includes(i))
+        {weatherData.list
+          .filter((_, i) => [8, 16, 24, 32].includes(i))
           .map((item) => (<AnotherDayWeather
             key={item.dt}
-            item={item}
+            date={item.dt}
+            weather={item.weather}
+            temp={Math.round(item.main.temp)}
           />))}
       </div>
     </>) : null}
