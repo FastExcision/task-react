@@ -6,7 +6,7 @@ const TodayWeather = ({weather, cityName, temp}) => {
     <div className="todayWeather">
       <img
         className="todayWeather_icon"
-        src={`/img/${weather.icon}.svg`}
+        src={`/img/weather/${weather.icon}.svg`}
         alt="Today Weather"
       />
       <div className="todayWeather__description">

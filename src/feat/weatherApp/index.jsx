@@ -3,18 +3,20 @@ import WeatherAppService from "../../api/weatherApi/index.js";
 import {useFetching} from "../../hooks/useFetching.jsx";
 import './styles/weatherApp.css';
 import TodayWeather from "./components/TodayWeather.jsx";
-import AnotherDayWeather from "./components/AnotherDayWeather.jsx";
+import NextDays from "./components/NextDays.jsx";
 import SearchCityForm from "./components/searchCityForm.jsx";
+import {getNextDaysNoon} from "../../utils/time.js";
 
 const WeatherAppPage = () => {
+
   const [cityName, setCityName] = useState("Санкт-Петербург");
   const [weatherData, setWeatherData] = useState(null);
 
   const loadWeatherData = async (city) => {
-    const geoResponse = await WeatherAppService.getGeo(city);
-    const {lat, lon} = geoResponse.data[0];
+    const geoResponse = await WeatherAppService.getGeoByName(city);
+    const {lat, lon} = geoResponse;
     const weatherResponse = await WeatherAppService.getWeatherDataByCoords(lat, lon);
-    setWeatherData(weatherResponse.data);
+    setWeatherData(weatherResponse);
   };
 
   const [fetchWeatherData, isLoading, error] = useFetching(loadWeatherData);
@@ -25,7 +27,7 @@ const WeatherAppPage = () => {
 
   return (<div className="weatherPage">
     <SearchCityForm setCityName={setCityName}/>
-    {isLoading ? (<img src="/img/loading.gif" alt="Loading..."/>) : error
+    {isLoading ? (<img src="/img/weather/loading.gif" alt="Loading..."/>) : error
       ? (<div>Ошибка: {error}</div>)
       : weatherData ? (<>
       <TodayWeather
@@ -34,9 +36,8 @@ const WeatherAppPage = () => {
         temp={Math.round(weatherData.list[0].main.temp)}
       />
       <div className="anotherDayWeather_wrapper">
-        {weatherData.list
-          .filter((_, i) => [8, 16, 24, 32].includes(i))
-          .map((item) => (<AnotherDayWeather
+        {getNextDaysNoon(weatherData.list, 4, "dt_txt")
+          .map((item) => (<NextDays
             key={item.dt}
             date={item.dt}
             weather={item.weather}
