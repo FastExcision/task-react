@@ -1,10 +1,12 @@
-import React from 'react';
+import {FC} from "react";
+import {checkDayOfWeek, NextDaysProps} from "../types/weatherApp";
+
 
 const daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-const NextDays = ({temp, weather, date}) => {
+const NextDays:FC<NextDaysProps> = ({temp, weather, date}) => {
 
-  const checkDayOfWeek = (dateInSeconds) => {
+  const checkDayOfWeek: checkDayOfWeek = (dateInSeconds) => {
     const dayNum = new Date(dateInSeconds * 1000).getDay();
     return daysArray[dayNum]
   }
