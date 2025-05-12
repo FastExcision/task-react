@@ -1,9 +1,7 @@
-import {FC} from "react";
 import {TaskListProps} from "../types/toDoList";
 
 
-
-const TaskList : FC<TaskListProps> = ({task, deleteTask})=> {
+const TaskList= ({task, deleteTask} :TaskListProps )=> {
 
   return (
     <div

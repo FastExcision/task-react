@@ -1,8 +1,8 @@
-import {FC, useRef} from "react";
+import {useRef} from "react";
 import {CreateNewTask, Task, TaskCreateFormProps} from "../types/toDoList";
 
 
-const TaskCreateForm: FC<TaskCreateFormProps> = ({addTask}) => {
+const TaskCreateForm = ({addTask}: TaskCreateFormProps) => {
 
     const taskInput = useRef<HTMLInputElement>(null);
 

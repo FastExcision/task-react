@@ -1,9 +1,8 @@
-import {FC} from 'react';
 import {TodayWeatherProps} from "../types/weatherApp";
 import {iconNameMap} from "../utils/iconNameMap.ts";
 
 
-const TodayWeather:FC<TodayWeatherProps> = ({weather, cityName, temp}) => {
+const TodayWeather = ({weather, cityName, temp}: TodayWeatherProps) => {
     const iconFromData = weather[0].icon
 
     return (

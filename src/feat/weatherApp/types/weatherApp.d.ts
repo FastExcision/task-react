@@ -30,6 +30,6 @@ export type TodayWeatherProps = {
 export type checkDayOfWeek = (dateInSeconds: number) => string;
 
 export type SearchCityFormProps = {
-    setCityName: (name: string) => void;
+    setCityName: (name: CityName) => void;
 }
 export type newCitySearch = (event: FormEvent<HTMLFormElement>) => void;

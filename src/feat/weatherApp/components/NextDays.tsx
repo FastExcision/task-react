@@ -1,11 +1,10 @@
-import {FC} from "react";
 import {checkDayOfWeek, NextDaysProps} from "../types/weatherApp";
 import {iconNameMap} from "../utils/iconNameMap.ts";
 
 
 const daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-const NextDays:FC<NextDaysProps> = ({temp, weather, date}) => {
+const NextDays = ({temp, weather, date}: NextDaysProps) => {
     const iconFromData = weather[0].icon
 
     const checkDayOfWeek: checkDayOfWeek = (dateInSeconds) => {

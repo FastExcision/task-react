@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import {FetchingFunction} from "../types/useFetching";
 
-// type UseFetching = <T extends unknown[]>(
-//     callback: FetchingFunction<T>
-// ) => [FetchingFunction<T>, boolean, string | null]
-
-
 export const useFetchLoading = <T extends unknown[]>(
     callback: FetchingFunction<T>
 ): [FetchingFunction<T>, boolean, string | null] => {

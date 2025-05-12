@@ -5,6 +5,7 @@ import {routes} from "./router/routes.tsx";
 
 
 function App() {
+
     return (
         <BrowserRouter>
             <Navbar/>

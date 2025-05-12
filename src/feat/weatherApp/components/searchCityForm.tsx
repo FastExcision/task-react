@@ -1,8 +1,8 @@
-import {FC, useRef} from "react";
+import {useRef} from "react";
 import {newCitySearch, SearchCityFormProps} from "../types/weatherApp";
 
 
-const SearchCityForm: FC<SearchCityFormProps> = ({setCityName}) => {
+const SearchCityForm = ({setCityName}: SearchCityFormProps) => {
     const searchInput = useRef<HTMLInputElement>(null);
 
     const newCitySearch: newCitySearch = (event) => {
